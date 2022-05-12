@@ -1,8 +1,20 @@
-# Python Program to convert temperature in celsius to fahrenheit
+from pathlib import Path
 
-# change this value for a different result
-celsius = 37.5
+import click
+import requests
 
-# calculate fahrenheit
-fahrenheit = (celsius * 1.8) + 32
-print('%0.1f degree Celsius is equal to %0.1f degree Fahrenheit' %(celsius,fahrenheit))
+@click.command()
+@click.argument('username')
+def cmd_api_client(username):
+
+    r = requests.get('http://127.0.1.1:5000/api/post/{}'.format(username))
+    if r.status_code != 200:
+        click.echo('Some error ocurred. Status Code: {}'.format(r.status_code))
+        print(r.text)
+        return False
+
+    print(r.text)
+
+
+if __name__ == '__main__':
+    cmd_api_client()
