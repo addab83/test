@@ -1,33 +1,11 @@
-public class PrimitiveParameters
-{	
-	public static void main(String[] args)
-	{	go();
-	}
-	
-	public static void go()
-	{	int x = 3;
-		int y = 2;
-		System.out.println("In method go. x: " + x + " y: " + y);
-		falseSwap(x,y);
-		System.out.println("in method go. x: " + x + " y: " + y);
-		moreParameters(x,y);
-		System.out.println("in method go. x: " + x + " y: " + y);
-	}
-	
-	public static void falseSwap(int x, int y)
-	{	System.out.println("in method falseSwap. x: " + x + " y: " + y);
-		int temp = x;
-		x = y;
-		y = temp;
-		System.out.println("in method falseSwap. x: " + x + " y: " + y);
-	}
-	
-	public static void moreParameters(int a, int b)
-	{	System.out.println("in method moreParameters. a: " + a + " b: " + b);
-		a = a * b;
-		b = 12;
-		System.out.println("in method moreParameters. a: " + a + " b: " + b);
-		falseSwap(b,a);
-		System.out.println("in method moreParameters. a: " + a + " b: " + b);	
-	}
-}
+// Get username from parameters
+String username = request.getParameter("username");
+// Create a statement from database connection
+Statement statement = connection.createStatement();  
+// Create unsafe query by concatenating user defined data with query string
+String query = "SELECT secret FROM Users WHERE (username = '" + username + "' AND NOT role = 'admin')";
+// ... OR ...
+// Insecurely format the query string using user defined data 
+String query = String.format("SELECT secret FROM Users WHERE (username = '%s' AND NOT role = 'admin')", username);
+// Execute query and return the results
+ResultSet result = statement.executeQuery(query);
